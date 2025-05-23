@@ -14,7 +14,7 @@ curl -fsSL https://deb.nodesource.com/setup_$NODE_VERSION.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 # Install Bun runtime
-curl -fsSL https://bun.sh/install | bash -s "$BUN_VERSION"
+curl -fsSL https://bun.sh/install | bash -s "bun-v$BUN_VERSION"
 
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
