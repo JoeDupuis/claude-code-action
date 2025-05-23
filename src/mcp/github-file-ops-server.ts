@@ -37,6 +37,11 @@ const REPO_OWNER = process.env.REPO_OWNER;
 const REPO_NAME = process.env.REPO_NAME;
 const BRANCH_NAME = process.env.BRANCH_NAME;
 
+console.log("[github-file-ops] Starting server...");
+console.log(`[github-file-ops] REPO_OWNER: ${REPO_OWNER}`);
+console.log(`[github-file-ops] REPO_NAME: ${REPO_NAME}`);
+console.log(`[github-file-ops] BRANCH_NAME: ${BRANCH_NAME}`);
+
 if (!REPO_OWNER || !REPO_NAME || !BRANCH_NAME) {
   console.error(
     "Error: REPO_OWNER, REPO_NAME, and BRANCH_NAME environment variables are required",
@@ -232,6 +237,7 @@ server.tool(
         ],
       };
     } catch (error) {
+      console.error("[github-file-ops] commit_files error:", error);
       return {
         content: [
           {
@@ -423,6 +429,7 @@ server.tool(
         ],
       };
     } catch (error) {
+      console.error("[github-file-ops] delete_files error:", error);
       return {
         content: [
           {
@@ -439,6 +446,9 @@ server.tool(
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
+  console.log(
+    `[github-file-ops] Server running for ${REPO_OWNER}/${REPO_NAME} on branch ${BRANCH_NAME}`,
+  );
   process.on("exit", () => {
     server.close();
   });
